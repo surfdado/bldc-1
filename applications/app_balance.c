@@ -107,6 +107,7 @@ static systime_t current_time, last_time, diff_time;
 static systime_t fault_angle_pitch_timer, fault_angle_roll_timer, fault_switch_timer, fault_switch_half_timer, fault_duty_timer;
 static float d_pt1_state, d_pt1_k;
 static float max_temp_fet;
+static float max_current;
 
 
 void app_balance_configure(balance_config *conf, imu_config *conf2) {
@@ -147,6 +148,7 @@ void reset_vars(void){
 	last_time = 0;
 	diff_time = 0;
 	max_temp_fet = mc_interface_get_configuration()->l_temp_fet_start;
+	max_current = mc_interface_get_configuration()->l_current_max;
 }
 
 float app_balance_get_pid_output(void) {
@@ -590,6 +592,9 @@ static THD_FUNCTION(balance_thread, arg) {
 
 				// Output to motor
 				set_current(pid_value, yaw_pid_value);
+				if (pid_value > max_current) {
+					beep_alert(5 + pid_value - max_current, 0);
+				}
 
 				/*
 				 * Control the light pins
