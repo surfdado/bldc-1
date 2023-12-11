@@ -153,6 +153,7 @@ package_dict["GO_FOC_M100"] = [['go_foc_m100', default_name],
                     ['go_foc_m100_no_limits', no_limits_name]]
 package_dict["SOLO"] = [['solo', default_name],
                     ['solo_no_limits', no_limits_name]]
+package_dict["THOR_300"] = [['thor_300', default_name]
 package_dict["FSESC_75_200_ALU"] = [['fsesc_75_200_alu', default_name],
                     ['fsesc_75_200_alu_no_limits', no_limits_name]]
 package_dict["MKSESC_75_100"] = [['mksesc_75_100', default_name],
