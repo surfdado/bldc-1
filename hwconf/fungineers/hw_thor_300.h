@@ -16,11 +16,11 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     */
-//7.12.2023
+
 #ifndef HW_THOR_300_H_
 #define HW_THOR_300_H_
 
-#define HW_NAME					"THOR 300"
+#define HW_NAME					"Thor_300"
 
 // HW properties
 #define HW_HAS_3_SHUNTS
@@ -97,7 +97,7 @@
 #define GET_INPUT_VOLTAGE()		((V_REG / 4095.0) * (float)ADC_Value[ADC_IND_VIN_SENS] * ((VIN_R1 + VIN_R2) / VIN_R2))
 // NTC Termistors
 #define NTC_RES(adc_val)		(10000.0 / ((4095.0 / (float)adc_val) - 1.0))
-#define NTC_TEMP(adc_ind)		hw_thor_300_get_temp()
+#define NTC_TEMP(adc_ind)		hw_thor_get_temp()
 
 #define NTC_RES_MOTOR(adc_val)	(10000.0 / ((4095.0 / (float)adc_val) - 1.0))
 #define NTC_TEMP_MOTOR(beta)	(1.0 / ((logf(NTC_RES_MOTOR(ADC_Value[ADC_IND_TEMP_MOTOR]) / 10000.0) / beta) + (1.0 / 298.15)) - 273.15)
@@ -216,7 +216,7 @@
 
 // Default setting overrides
 #ifndef MCCONF_L_MIN_VOLTAGE
-#define MCCONF_L_MIN_VOLTAGE			12.0		// Minimum input voltage
+#define MCCONF_L_MIN_VOLTAGE			32.0		// Minimum input voltage
 #endif
 #ifndef MCCONF_L_MAX_VOLTAGE
 #define MCCONF_L_MAX_VOLTAGE			90.0	// Maximum input voltage
@@ -241,16 +241,16 @@
 #endif
 
 // Setting limits
-#define HW_LIM_CURRENT			-250.0, 250.0
-#define HW_LIM_CURRENT_IN		-100.0, 100.0
+#define HW_LIM_CURRENT			-200.0, 200.0
+#define HW_LIM_CURRENT_IN		-150.0, 150.0
 #define HW_LIM_CURRENT_ABS		0.0, 320.0
-#define HW_LIM_VIN				12.0, 88.0
+#define HW_LIM_VIN				12.0, 92.0
 #define HW_LIM_ERPM				-200e3, 200e3
 #define HW_LIM_DUTY_MIN			0.0, 0.1
 #define HW_LIM_DUTY_MAX			0.0, 0.95
 #define HW_LIM_TEMP_FET			-40.0, 85.0
 
 // Functions
-float hw_thor_300_get_temp(void);
+float hw_thor_get_temp(void);
 bool hw_sample_shutdown_button(void);
 #endif /* HW_THOR_300_H_ */
